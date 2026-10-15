@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "name": "Unmix downloaded release",
+  "root": "auto",
+  "required_files": ["package.json", "bin/unmix.mjs", "src/core.mjs", "src/mcp.mjs", "test/report.test.mjs"],
+  "checks": [
+    {"id": "cli-help", "argv": ["node", "bin/unmix.mjs", "help"], "stdout_contains": ["Unmix 0.1.3", "report"]},
+    {"id": "regression-suite", "argv": ["node", "--test"], "timeout_seconds": 120}
+  ]
+}

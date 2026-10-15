@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "name": "ZipTrial source release",
+  "root": "auto",
+  "required_files": ["ziptrial/__main__.py", "ziptrial/core.py", "tests/test_ziptrial.py", "README.md", "LICENSE"],
+  "checks": [
+    {"id": "cli-version", "argv": ["{python}", "-m", "ziptrial", "--version"], "stdout_contains": ["ZipTrial 0.1.0"]},
+    {"id": "test-suite", "argv": ["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"], "timeout_seconds": 120}
+  ]
+}
