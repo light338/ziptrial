@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ziptrial"
+version = "0.1.0"
+description = "Smoke-test the release archive users download, outside your working checkout"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "light338"}]
+dependencies = []
+
+[project.scripts]
+ziptrial = "ziptrial.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["ziptrial*"]
