@@ -1,0 +1,29 @@
+name: Test checkout and actual release ZIP
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: '3.10'
+          - os: ubuntu-latest
+            python: '3.12'
+          - os: ubuntu-latest
+            python: '3.14'
+          - os: macos-latest
+            python: '3.12'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests -v
+      - run: python -m examples.demo "$RUNNER_TEMP/ziptrial-demo"
+      - name: Test the actual source ZIP without the checkout
+        run: |
+          git archive --format=zip --prefix=ziptrial/ --output="$RUNNER_TEMP/ziptrial.zip" HEAD
+          python -m ziptrial run "$RUNNER_TEMP/ziptrial.zip" --manifest examples/self.json --output "$RUNNER_TEMP/ziptrial-self"
